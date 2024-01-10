@@ -4,12 +4,16 @@ class MessageBubble extends StatelessWidget {
   final String message;
   final bool isMe;
   final String username;
+  final String imageUrl;
+  final bool isRepeated;
 
   const MessageBubble(
       {super.key,
       required this.username,
       required this.message,
-      required this.isMe});
+      required this.isMe,
+      required this.imageUrl,
+      required this.isRepeated});
 
   @override
   Widget build(BuildContext context) {
@@ -17,23 +21,40 @@ class MessageBubble extends StatelessWidget {
     return Row(
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
+        if (!isMe && !isRepeated)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 15, left: 5),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(imageUrl),
+            ),
+          ),
+        if (!isMe && isRepeated)
+          const Padding(
+            padding: EdgeInsets.only(bottom: 15, left: 5),
+            child: CircleAvatar(
+              backgroundColor: Colors.transparent,
+            ),
+          ),
         Container(
           decoration: BoxDecoration(
             color: isMe
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.secondary,
             borderRadius: BorderRadius.only(
-              topLeft: !isMe ? Radius.zero : const Radius.circular(16),
-              topRight: isMe ? Radius.zero : const Radius.circular(16),
-              bottomLeft: const Radius.circular(16),
-              bottomRight: const Radius.circular(16),
+              topLeft: !isMe && !isRepeated
+                  ? Radius.zero
+                  : const Radius.circular(12),
+              topRight:
+                  isMe && !isRepeated ? Radius.zero : const Radius.circular(12),
+              bottomLeft: const Radius.circular(12),
+              bottomRight: const Radius.circular(12),
             ),
           ),
           constraints: BoxConstraints(
             maxWidth: deviceSize.width * 0.7,
           ),
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-          margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          margin: EdgeInsets.only(top: isRepeated ? 1 : 4, left: 8, right: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

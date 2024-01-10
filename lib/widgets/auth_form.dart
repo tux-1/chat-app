@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../services/firebase_helper.dart';
 import 'custom_textformfield.dart';
+import 'image_picker.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({super.key});
@@ -21,6 +24,13 @@ class _AuthFormState extends State<AuthForm> {
   final _confirmPasswordController = TextEditingController();
   late bool _isLogin;
   bool _isLoading = false;
+  XFile? _userImageFile;
+
+  void _pickedImage(XFile? image) {
+    setState(() {
+      _userImageFile = image;
+    });
+  }
 
   void _setLoading(bool newLoadingStatus) {
     setState(() {
@@ -32,13 +42,26 @@ class _AuthFormState extends State<AuthForm> {
     FocusScope.of(context).unfocus();
     final isValid = _formKey.currentState?.validate();
 
+    if (_userImageFile == null && !_isLogin) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Pick an image lol'),
+        backgroundColor: Theme.of(context).colorScheme.error,
+        showCloseIcon: true,
+      ));
+      return;
+    }
+
     if (isValid == true) {
       _setLoading(true);
+
+      
+
       await FireBaseHelper.submitAuthForm(
         email: _emailController.text,
         password: _passwordController.text.trim(),
         isLogin: _isLogin,
         username: _usernameController.text.trim(),
+        file: _userImageFile,
       ).onError((error, stackTrace) {
         if (mounted) {
           _setLoading(false);
@@ -74,11 +97,15 @@ class _AuthFormState extends State<AuthForm> {
           child: AnimatedSize(
             duration: Durations.short3,
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(
+                  decelerationRate: ScrollDecelerationRate.fast),
               child: Form(
                   key: _formKey,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      if (!_isLogin)
+                        UserImagePicker(imagePickerFn: _pickedImage),
                       const SizedBox(height: 20),
                       // Email field
                       CustomTextField(
@@ -101,7 +128,6 @@ class _AuthFormState extends State<AuthForm> {
                       // Password field
                       CustomTextField(
                         key: ValueKey('password'),
-                        textInputAction: TextInputAction.done,
                         controller: _passwordController,
                         keyboardType: TextInputType.visiblePassword,
                         labelText: 'Password',

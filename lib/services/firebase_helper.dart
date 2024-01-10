@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../models/exception_message.dart';
 
@@ -11,6 +15,7 @@ class FireBaseHelper {
     required String password,
     required String username,
     required bool isLogin,
+    required XFile? file,
   }) async {
     final UserCredential authResult;
 
@@ -27,12 +32,22 @@ class FireBaseHelper {
           email: email,
           password: password,
         );
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child('user_images')
+            .child('${authResult.user!.uid}.jpg');
+
+        await ref.putFile(File(file!.path)).whenComplete(() => null);
+
+        final url = await ref.getDownloadURL();
+
         await FirebaseFirestore.instance
             .collection('users/')
             .doc(authResult.user?.uid)
             .set({
           'username': username,
           'email': email,
+          'image_url': url,
         });
       }
     } on FirebaseAuthException catch (error) {

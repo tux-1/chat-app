@@ -12,6 +12,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       drawer: Drawer(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             TextButton.icon(
                 onPressed: () {
