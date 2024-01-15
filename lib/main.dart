@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'screens/auth_screen.dart';
 import 'screens/chat_screen.dart';
+import './services/firebase_messaging_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await FirebaseMessagingHelper().initNotifications();
   runApp(const MyApp());
 }
 

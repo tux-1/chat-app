@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../models/exception_message.dart';
 
-class FireBaseHelper {
+class FirebaseAuthHelper {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   static Future<void> submitAuthForm({

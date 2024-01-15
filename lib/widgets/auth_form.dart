@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -54,9 +53,7 @@ class _AuthFormState extends State<AuthForm> {
     if (isValid == true) {
       _setLoading(true);
 
-      
-
-      await FireBaseHelper.submitAuthForm(
+      await FirebaseAuthHelper.submitAuthForm(
         email: _emailController.text,
         password: _passwordController.text.trim(),
         isLogin: _isLogin,
