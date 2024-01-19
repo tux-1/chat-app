@@ -24,7 +24,7 @@ class ChatScreen extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        title: const Text('Chat page lol'),
+        title: const Text('Chat page'),
       ),
       body: const SizedBox(
         child: Column(

@@ -23,18 +23,15 @@ class MessageBubble extends StatelessWidget {
       children: [
         if (!isMe && !isRepeated)
           Padding(
-            padding: const EdgeInsets.only(
-              bottom: 15,
-              left: 4
-            ),
+            padding: const EdgeInsets.only(bottom: 15, left: 4),
             child: CircleAvatar(
               backgroundImage: NetworkImage(imageUrl),
             ),
           ),
         if (!isMe && isRepeated)
           const Padding(
-            padding:  EdgeInsets.only(left:4.0),
-            child:  CircleAvatar(
+            padding: EdgeInsets.only(left: 4.0),
+            child: CircleAvatar(
               backgroundColor: Colors.transparent,
             ),
           ),
@@ -68,6 +65,7 @@ class MessageBubble extends StatelessWidget {
                 ),
               Text(
                 message,
+                textWidthBasis: TextWidthBasis.longestLine,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onSecondary,
                 ),
