@@ -1,16 +1,39 @@
-# chat_app
+# Chat App
 
-A new Flutter project.
+Chat App is a real-time messaging application developed using Dart and the Flutter framework.
+
+## Features
+
+- **Real-Time Messaging:** Engage in seamless and instant conversations with other users.
+
+## Technologies Used
+
+- Dart
+- Flutter
+- Firebase
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To run this application locally, follow these steps:
 
-A few resources to get you started if this is your first Flutter project:
+1. Clone the repository: `git clone https://github.com/tux-1/chat-app.git`
+2. Navigate to the project directory: `cd chat-app`
+3. Install dependencies: `flutter pub get`
+4. Run the app: `flutter run`
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Configuration
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Before running the app, make sure you have suitable environment for running flutter.
+
+
+## Contributing
+
+If you would like to contribute to the development of this project, please contact me on discord `@tuxedo.` 
+
+## License
+
+All rights reserved.
+
+## Acknowledgments
+
+- [Any credits or acknowledgments if applicable]
