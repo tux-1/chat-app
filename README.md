@@ -33,7 +33,3 @@ If you would like to contribute to the development of this project, please conta
 ## License
 
 All rights reserved.
-
-## Acknowledgments
-
-- [Any credits or acknowledgments if applicable]
